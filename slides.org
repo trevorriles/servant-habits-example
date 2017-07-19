@@ -9,12 +9,12 @@
 - Elegant
 - Safe Refactoring
 
-* Lets Build a Habit Tracker
+* Lets Build a Habit Tracker!
 
-Requirements:
-- Track a collection of habits.
-- Allow a user to log a Yes, No, or Skip for habit for any given day.
-- Create a simple web UI to assist in entering results.
+- We will start an API where we can track habits that you would like to get better at.
+- The javascript client request code will be generated via our application.
+- For today we are just going to create and list habbits, not log any form of progress.
+- We will demo some quick and dirty javascript in the browser.
 
 * Haskell Data Types
 
@@ -31,9 +31,8 @@ instance FromJSON Habit
 #+END_SRC
 
 * Servant
-Servant is a webframe work where you define your API in the type system.
+Servant is a webframework that allows you to define your API in the type system.
 
-#+NAME: ApiType.hs
 #+BEGIN_SRC haskell
 -- Our Habit Api
 type HabitApi = "habits" :> ReqBody '[JSON] Habit :> Post '[JSON] [Habit]

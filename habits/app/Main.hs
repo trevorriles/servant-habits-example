@@ -45,22 +45,25 @@ instance FromJSON Habit
 newHabitList :: IO (TVar [Habit])
 newHabitList = newTVarIO []
 
-addHabit :: MonadIO m => TVar [Habit] -> Habit -> m [Habit]
+addHabit :: MonadIO m => TVar [Habit] -> Habit -> m Habit
 addHabit habitList habit = liftIO . atomically $ do
   oldList <- readTVar habitList
   let newList = [habit] ++ oldList
   writeTVar habitList newList
-  return newList
+  return habit
 
 getHabitList :: MonadIO m => TVar [Habit] -> m [Habit]
 getHabitList habitList = liftIO $ readTVarIO habitList
 
 -- Our API
 
-type HabitApi = "habits" :> ReqBody '[JSON] Habit :> Post '[JSON] [Habit]
+type HabitApi = "habits" :> ReqBody '[JSON] Habit :> Post '[JSON] Habit
            :<|> "habits" :> Get '[JSON] [Habit]
 
 type HabitApi' = HabitApi :<|> Raw
+
+habitApi :: Proxy HabitApi
+habitApi = Proxy
 
 habitApi' :: Proxy HabitApi'
 habitApi' = Proxy

@@ -27,7 +27,7 @@
             }
 
             function addHabit(name) {
-                postHabits({"habitName": name, "habitId": 999, "habitChain": []}, updateHabits, alert)
+                postHabits({"habitName": name, "habitId": 999, "habitChain": []}, () => getHabits(updateHabits, alert), alert);
             }
         </script>
     </body>
